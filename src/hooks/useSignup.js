@@ -5,9 +5,13 @@ import { useState } from "react"
 import { auth } from "../firebase/config"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 
+//context
+import { useAuthContext } from "./useAuthContext"
+
 export const useSignup = () => {
 	const [error, setError] = useState(null)
 	const [isPending, setIsPending] = useState(false)
+	const {dispatch} = useAuthContext()
 
 	const signup = async (email, password, displayName) => {
 		setError(null)
@@ -23,6 +27,7 @@ export const useSignup = () => {
 			//updating user display name
 			await updateProfile(res.user, {displayName})
 		
+			dispatch({type: 'LOGIN', payload: res.user})
 
 			setIsPending(false)
 
