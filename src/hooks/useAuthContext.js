@@ -5,7 +5,7 @@ export const useAuthContext = () => {
 	const context = useContext(AuthContext)
 
 	if (!context) {
-		throw new Error("out of context scope")
+		throw Error("out of context scope")
 	}
-	return { context }
+	return context
 }

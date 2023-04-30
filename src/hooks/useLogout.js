@@ -1,24 +1,40 @@
-import {signOut} from 'firebase/auth'
-import {auth} from '../firebase/config'
-import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
+//auth
+import { signOut } from "firebase/auth"
+import { auth } from "../firebase/config"
+
+//react
+import { useState, useEffect } from "react"
+
+//hooks
+import { useAuthContext } from "./useAuthContext"
 
 export const useLogout = () => {
-    const [error, setError] = useState(null)
+	const [error, setError] = useState(null)
+	const [isCancelled, setIsCancelled] = useState(false)
 
-    const {dispatch} = useAuthContext()
+	const { dispatch } = useAuthContext()
 
-    const logout = async () => {
-        setError(null)
+	const logout = async () => {
+		setError(null)
 
-        try {
-            await signOut(auth)
+		try {
+			await signOut(auth)
 
-            dispatch({type: 'LOGOUT'})
-        } catch (err) {
-            setError(err.message)
-        }
-    }
+			dispatch({ type: "LOGOUT" })
 
-    return {error, logout}
+			if (!isCancelled) {
+				setError(null)
+			}
+		} catch (err) {
+			setError(err.message)
+		}
+	}
+
+	useEffect(() => {
+		return () => {
+			setIsCancelled(true)
+		}
+	}, [])
+
+	return { error, logout }
 }
