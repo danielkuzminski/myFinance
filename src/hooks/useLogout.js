@@ -26,7 +26,9 @@ export const useLogout = () => {
 				setError(null)
 			}
 		} catch (err) {
-			setError(err.message)
+			if(!isCancelled){
+				setError(err.message)
+			}
 		}
 	}
 

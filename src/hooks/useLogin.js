@@ -1,5 +1,5 @@
 import {signInWithEmailAndPassword} from 'firebase/auth'
-import {useAuthContext} from '../context/AuthContext'
+import {useAuthContext} from '../hooks/useAuthContext'
 import {auth} from '../firebase/config'
 import { useState, useEffect } from 'react'
 

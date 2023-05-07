@@ -4,12 +4,19 @@ import './Login.css'
 //react
 import { useState } from 'react'
 
+//hooks
+import {useLogin} from '../../hooks/useLogin'
+
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const {error, isPending, login} = useLogin()
+
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    login(email, password)
 
     console.log(email, password)
   }
