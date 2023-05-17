@@ -6,9 +6,11 @@ import TransactionForm from './TransactionForm'
 
 // hooks
 import {useAuthContext} from '../../hooks/useAuthContext'
+import { useCollection } from '../../hooks/useCollection'
 
 export default function Home() {
   const {user} = useAuthContext()
+  const {data} = useCollection('transactions')
 
   return (
     <div className='container'>
